@@ -14,13 +14,18 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2017",
-    "module": "es2020",
+    "target": "es2015",
+    "module": "es2015",
     "lib": [
       "es2018",
+      "ES2015",
+      "ES2017",
       "dom"
     ]
   },
+  "resolve": {
+    "fallback": { "crypto": false },
+},
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
