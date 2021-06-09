@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import * as cryptoJS from 'crypto-js';
 
@@ -9,44 +10,109 @@ import * as cryptoJS from 'crypto-js';
 export class HomeComponent implements OnInit {
 key: any;
 iv: any;
-  constructor() { }
+register = {
+  lastName: '',
+  firstName: '',
+  email: '',
+  password: '',
+  tel: '',
+  house: '',
+  photo: '',
+  role: '',
+  post: '',
+  isConnected: 'false',
+  superior: [''],
+  created_at: new Date().toLocaleDateString()
+};
+login = {
+  email: '',
+  password: ''
+};
+logout = {
+  _id: ''
+};
+updating = {
+  type: '',
+  _id: '',
+  lastName: '',
+  firstName: '',
+  email: '',
+  password: '',
+  photo: '',
+};
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    /*this.key = cryptoJS.SHA512('masuperkey');
-    this.iv = cryptoJS.SHA256('ma_super_key_de_bloc');
-    console.log(this.key);
-    const a = cryptoJS.AES.encrypt('zidane', this.key,  {
-      mode: cryptoJS.mode.CBC,
-      iv: this.iv
-    })*/
-    var key256Bits = cryptoJS.PBKDF2("Secret Passphrase 1", 'salt', {
-      keySize: 256 / 32
-    });
-    var key128Bits = cryptoJS.PBKDF2("Secret Passphrase 2", 'salt', {
-      keySize: 128 / 32
-    });
 
-    console.log(key128Bits);
-    console.log(key256Bits);
+  this.register = {
+      lastName: 'zidane',
+      firstName: 'Mohamed',
+      email: 'zidane.mohamed@lce-ci.com',
+      password: '',
+      tel: '0779261619',
+      house: 'Yopougon Sapeur pompier',
+      photo: '',
+      role: 'agent',
+      post: 'Chef de petit projet',
+      isConnected: 'false',
+      superior: ['60bdee81a103694ab0c8fe05'],
+      created_at: new Date().toLocaleDateString()
+    };
 
-    const a = cryptoJS.AES.encrypt('zidane', key256Bits,  {
-      mode: cryptoJS.mode.CBC,
-      iv: key128Bits
-    });
+    console.log(this.register);
 
-    console.log(a);
+    this.http.post('http://localhost:3000/auth/register', this.register).subscribe(
+      (success) => {
+        console.log(success);
 
-    const b = cryptoJS.AES.decrypt(a, key256Bits, {
-      iv: key128Bits,
-    });
+      }, (err) => {
+        console.log(err);
 
-    console.log(b);
+      }
+    )
 
-    // this.key = cryptoJS.scryptSync('apoememfkpjojpfffefs', 'salt', 32);
-    // this.iv = cryptoJS.scryptSync('pkdpsnvjqsso<qjvjqsoid', 'salt', 16);
-    // console.log(this.key);
-    // console.log(this.iv);
+    /*this.login = {
+      email : 'diomandedroh79@gmail.com',
+      password: 'diomande-dvbj'
+    };
 
+    this.http.post('http://localhost:3000/auth/login', this.login).subscribe(
+      (success) => {
+        console.log(success);
+      }, (err) => {
+        console.log(err);
+      }
+    );*/
+
+    /*this.logout._id = '60bdf44b39d7dd36745a2cc5';
+
+    this.http.post('http://localhost:3000/auth/logout', this.logout).subscribe(
+      (success) => {
+        console.log(success);
+
+      }, (err) => {
+        console.log(err);
+
+      }
+    );*/
+
+    /*this.updating = {
+      type: 'includes password',
+      _id: '60bdf44b39d7dd36745a2cc5',
+      lastName: 'Diomande',
+      firstName: 'Pitus',
+      email: 'diomandedroh79@gmail.com',
+      password: 'new password',
+      photo: ''
+    };
+
+    this.http.post('http://localhost:3000/auth/update', this.updating).subscribe(
+      (success) => {
+        console.log(success);
+      }, (err) => {
+        console.log(err);
+      }
+    );*/
   }
 
 }
