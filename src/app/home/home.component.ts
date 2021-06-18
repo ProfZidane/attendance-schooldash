@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import * as cryptoJS from 'crypto-js';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -40,11 +39,46 @@ updating = {
   password: '',
   photo: '',
 };
-  constructor(private http: HttpClient) { }
+data = {
+  email : '',
+  password : '',
+  device : 'caisse'
+};
+user: any;
+title = '';
+countUser: any;
+  constructor() { 
+    this.title = 'Tableau de bord';
+  }
 
   ngOnInit(): void {
 
-  this.register = {
+    if (localStorage.getItem('user-data') !== null) {
+      this.user = localStorage.getItem('user-data')
+      this.user =  JSON.parse(this.user);
+
+      console.log(this.user);   
+      
+    }
+
+    
+    /*this.data = {
+      email: "caissier@gmail.com",
+      password: '2222',
+      device: 'caisse'
+    };
+
+
+    this.http.post('https://accessoiresmodes.com/api/logout', { headers: this.getHeaders() }).subscribe(
+      (success) => {
+        console.log(success);
+
+      }, (err) => {
+        console.log(err);
+
+      }
+    )*/
+  /*this.register = {
       lastName: 'zidane',
       firstName: 'Mohamed',
       email: 'zidane.mohamed@lce-ci.com',
@@ -69,7 +103,7 @@ updating = {
         console.log(err);
 
       }
-    )
+    )*/
 
     /*this.login = {
       email : 'diomandedroh79@gmail.com',
@@ -114,5 +148,16 @@ updating = {
       }
     );*/
   }
+
+
+
+
+  /*getHeaders() {
+      const headers = new HttpHeaders({
+        'Content-type' : 'application/json',
+        Authorization: 'Bearer ' + this.token
+      });
+      return headers;
+  }*/
 
 }

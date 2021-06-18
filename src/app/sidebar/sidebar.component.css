@@ -1,0 +1,8 @@
+i {
+    font-size: 15px;
+}
+
+.medium {
+    font-size: 25px;
+    transform: translateY(-10%);
+}

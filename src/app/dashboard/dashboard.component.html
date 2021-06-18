@@ -1,0 +1,132 @@
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+            <div class="row">
+                <div class="col-8">
+                <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Nombre du personnel</p>
+                    <h5 class="font-weight-bolder mb-0" *ngIf="countUser">
+                    {{ countUser.count }}
+                    <!--<span class="text-success text-sm font-weight-bolder">+55%</span>-->
+                    </h5>
+                </div>
+                </div>
+                <div class="col-4 text-end">
+                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="material-icons" style="position: relative; left: 24%;">
+                        personn
+                    </i>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+            <div class="row">
+                <div class="col-8">
+                <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Nombre de retard</p>
+                    <h5 class="font-weight-bolder mb-0" *ngIf="countAttendance">
+                    {{ countAttendance.count_late }}
+                    <!--<span class="text-success text-sm font-weight-bolder">+3%</span>-->
+                    </h5>
+                </div>
+                </div>
+                <div class="col-4 text-end">
+                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="material-icons">
+                        history
+                    </i>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+            <div class="row">
+                <div class="col-8">
+                <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Nombre de justifications</p>
+                    <h5 class="font-weight-bolder mb-0" *ngIf="countProof">
+                    {{ countProof.count }}
+                    <!--<span class="text-danger text-sm font-weight-bolder">-2%</span>-->
+                    </h5>
+                </div>
+                </div>
+                <div class="col-4 text-end">
+                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                   <i class="material-icons">
+                    format_align_justify
+                   </i>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+
+        <div class="col-md-12">
+
+            <div class="card">
+
+                <div class="card-body p-3">
+                    <h1 class="text-lg text-capitalize font-weight-bold">Aperçu des retards (<small class="text-sm">annuel</small>)</h1>
+
+                    <chart id="my-angular-chart" [type]="type" [data]="data" [options]="options"></chart>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div> 
+    <div class="row mt-4">
+        
+        <div class="col-md-12">
+
+            <div class="card">
+
+                <div class="card-body p-3">
+                    <h1 class="text-lg text-capitalize font-weight-bold">Aperçu des retards par employés (<small class="text-sm">annuel</small>)</h1>
+
+                    <chart id="my-angular-chart" [type]="type2" [data]="data2" [options]="options2"></chart>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <footer class="footer pt-3">
+        <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 mb-lg-0 mb-4">
+            <div class="copyright text-center text-sm text-muted text-lg-left">
+                © {{ year }},
+                créer par
+                <a href="" class="font-weight-bold" target="_blank">MZ</a>
+                
+            </div>
+            </div>
+            <div class="col-lg-6">
+            
+            </div>
+        </div>
+        </div>
+    </footer>
+    </div>
