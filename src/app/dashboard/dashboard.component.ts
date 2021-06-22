@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
     this.getCountProof();
     this.getDataToChart();
     this.getDataToBar();
+    this.getLateByUser();
   }
 
   getCountUser() {
@@ -64,6 +65,20 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+
+  
+  getLateByUser() {
+     this.attendanceService.countLateByUser().subscribe(
+       (data) => {
+        console.log(data);
+        
+       }, (err) => {
+         console.log(err);
+         
+       }
+     );
+  }
+  
 
   getDataToChart() {
     this.type = 'line';

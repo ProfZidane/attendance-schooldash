@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
   countURL = environment.endPoint + 'user/get-personnal';
+  
   constructor(private http: HttpClient) { }
 
   countUser(): Observable<any> {
