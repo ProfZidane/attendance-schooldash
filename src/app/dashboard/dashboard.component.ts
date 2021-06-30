@@ -24,9 +24,12 @@ export class DashboardComponent implements OnInit {
     this.getCountUser();
     this.getCountAttendance();
     this.getCountProof();
-    this.getDataToChart();
-    this.getDataToBar();
+    
+    // this.getDataToBar();
     this.getLateByUser();
+    this.getLateByMonth();
+
+    // this.getDataToChart();
   }
 
   getCountUser() {
@@ -71,6 +74,16 @@ export class DashboardComponent implements OnInit {
      this.attendanceService.countLateByUser().subscribe(
        (data) => {
         console.log(data);
+        let employee: string[] = [];
+        let count: string[] = [];
+        data.forEach((element: any) => {
+          employee.push(element.data_user.firstName + ' ' + element.data_user.lastName);
+          count.push(element.data_attendance.length);
+        });
+        console.log(employee);
+        console.log(count);
+
+        this.getDataToBar(employee, count);
         
        }, (err) => {
          console.log(err);
@@ -78,16 +91,35 @@ export class DashboardComponent implements OnInit {
        }
      );
   }
+
+
+  getLateByMonth() {
+    this.attendanceService.countLateByMonth().subscribe(
+      (data) => {
+        console.log(data);
+        const keys = Object.keys(data);
+        console.log(keys);
+        const value = Object.values(data);
+        console.log(value);
+        
+        this.getDataToChart(keys, value);
+
+      }, (err) => {
+        console.log(err);
+        
+      }
+    );
+  }
   
 
-  getDataToChart() {
+  getDataToChart(monthTab: any, dataTab: any) {
     this.type = 'line';
     this.data = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: monthTab,
       datasets: [
         {
-          label: "My First dataset",
-          data: [65, 59, 80, 81, 56, 55, 40]
+          label: "Nombre de retards",
+          data: dataTab
         }
       ]
     };
@@ -97,14 +129,14 @@ export class DashboardComponent implements OnInit {
     };
   }
 
-  getDataToBar() {
+  getDataToBar(employeeTab: any, dataTab: any) {
     this.type2 = 'bar';
     this.data2 = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: employeeTab,
       datasets: [
         {
-          label: "My First dataset",
-          data: [65, 59, 80, 81, 56, 55, 40]
+          label: "Nombre de retards",
+          data: dataTab
         }
       ]
     };

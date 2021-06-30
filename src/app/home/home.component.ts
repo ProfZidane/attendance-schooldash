@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -47,7 +49,7 @@ data = {
 user: any;
 title = '';
 countUser: any;
-  constructor() { 
+  constructor(private authService: AuthService, private router: Router) { 
     this.title = 'Tableau de bord';
   }
 
@@ -149,7 +151,7 @@ countUser: any;
     );*/
   }
 
-
+  
 
 
   /*getHeaders() {
@@ -159,5 +161,27 @@ countUser: any;
       });
       return headers;
   }*/
+  
+  logoutFunction() {
+    console.log(localStorage.getItem('user-data'));
+    const _id = this.user._id;
 
+    this.logout._id = _id;
+    
+    console.log(this.logout);
+    
+    this.authService.logout(this.logout).subscribe(
+      (success) => {
+        console.log(success);
+        localStorage.removeItem('app-token');
+        localStorage.removeItem('user-data');
+        this.router.navigateByUrl('/');
+      }, (err) => {
+        console.log(err);
+        
+      }
+    );
+    
+  }
+  
 }

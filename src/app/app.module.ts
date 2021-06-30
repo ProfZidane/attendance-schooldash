@@ -10,21 +10,27 @@ import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartModule } from 'angular2-chartjs';
+import { EmployeeManagementComponent } from './employee-management/employee-management.component';
+import { AttendanceManagementComponent } from './attendance-management/attendance-management.component';
+import { DataTablesModule } from "angular-datatables";
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
     SidebarComponent,
-    DashboardComponent
+    DashboardComponent,
+    EmployeeManagementComponent,
+    AttendanceManagementComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ChartModule
-
+    ChartModule,
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
