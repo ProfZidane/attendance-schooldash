@@ -13,6 +13,7 @@ import { ChartModule } from 'angular2-chartjs';
 import { EmployeeManagementComponent } from './employee-management/employee-management.component';
 import { AttendanceManagementComponent } from './attendance-management/attendance-management.component';
 import { DataTablesModule } from "angular-datatables";
+import { NoticeJustificationComponent } from './notice-justification/notice-justification.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DataTablesModule } from "angular-datatables";
     SidebarComponent,
     DashboardComponent,
     EmployeeManagementComponent,
-    AttendanceManagementComponent
+    AttendanceManagementComponent,
+    NoticeJustificationComponent
   ],
   imports: [
     BrowserModule,

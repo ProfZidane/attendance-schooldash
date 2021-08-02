@@ -6,6 +6,8 @@ import { EmployeeManagementComponent } from './employee-management/employee-mana
 import { GuardGuard } from './guards/guard.guard';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { NoticeJustificationComponent } from './notice-justification/notice-justification.component';
+
 
 const routes: Routes = [
   {
@@ -33,6 +35,10 @@ const routes: Routes = [
         outlet: 'child'
       }
     ]
+  },
+  {
+    path: 'validation-justification/:id/:id2',
+    component: NoticeJustificationComponent
   }
 ];
 

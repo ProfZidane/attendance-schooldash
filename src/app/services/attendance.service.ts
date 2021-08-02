@@ -12,6 +12,8 @@ export class AttendanceService {
   countProofURL = environment.endPoint + 'admin-statistic/get-all-proof';
   lateByUserURL = environment.endPoint + 'admin-statistic/get-attendance-by-user';
   lateByMonthURL = environment.endPoint + 'admin-statistic/get-attendance-by-month';
+  getListAttendance = environment.endPoint + 'attendance/get-list-attendances';
+
   constructor(private http: HttpClient) { }
 
   countAttendance(): Observable<any> {
@@ -21,7 +23,7 @@ export class AttendanceService {
   countProof(): Observable<any> {
     return this.http.get(this.countProofURL);
   }
-
+ 
   countLateByUser(): Observable<any> {
     return this.http.get(this.lateByUserURL);
   }
@@ -29,4 +31,9 @@ export class AttendanceService {
   countLateByMonth(): Observable<any> {
     return this.http.get(this.lateByMonthURL);
   }
+
+  getListAtendances(): Observable<any> {
+    return this.http.get(this.getListAttendance);
+  }
+
 }

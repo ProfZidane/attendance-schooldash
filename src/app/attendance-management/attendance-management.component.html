@@ -1,1 +1,60 @@
-<p>attendance-management works!</p>
+<div class="container-fluid py-4">
+
+    <div class="row">
+        <div class="col-md-12 p-4">
+            <h3>Listes des horaires</h3>
+        </div>
+        <div class="col-md-12">
+            <div class="container mb-5">
+                <small class="pl-5">
+                    <strong>NB:</strong>
+                    La couleur rouge,  &nbsp; <span class="bg-danger" style="border: solid red;"></span> &nbsp; dans le tableau, indique un retard.
+                </small>
+                <br>
+                <small>
+                    <strong>NB:</strong>
+                    La couleur vert,  &nbsp; <span class="bg-success" style="border: solid green;"></span> &nbsp; dans le tableau, indique un respect horaire.
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+      
+        <table datatable [dtOptions]="dtOptions" class="row-border hover" *ngIf="attendances">
+            <thead>
+              <tr>                
+                <th>Noms & prénoms</th>                                
+                <th>Habitation</th>
+                <th>Numéro téléphone</th>
+                <th>Heure d'Arrivée</th>
+                <th>Heure de sortie</th>
+                <th>Temps de travail</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <!-- <th></th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let attendance of attendances">                
+                <td>{{ attendance.userData.firstName + ' ' + attendance.userData.lastName }}</td>
+                <td>{{ attendance.userData.house }}</td>
+                <td>{{ attendance.userData.tel }}</td>
+                <td>{{ attendance.startTime}}</td>
+                <td>{{ attendance.endTime }}</td>
+                <td>{{ attendance.workTime }}</td>
+                <td *ngIf="attendance.justified === 'true'" class="text-success">Justifié</td>
+                <td *ngIf="attendance.justified === 'false'" class="text-danger">Non justifié</td>
+                <td>
+                  <button class="btn btn-primary disabled" *ngIf="attendance.justified === 'false'">Justification</button>
+                  <button class="btn btn-primary" *ngIf="attendance.justified === 'true'">Voir justificatif</button>
+                </td>
+                <td *ngIf="attendance.color === 'red'" class="bg-danger"></td>
+                <td *ngIf="attendance.color === 'green'" class="bg-success"></td>
+                <!-- <td><button class="btn btn-primary">Demander justification</button></td> -->
+              </tr>              
+            </tbody>
+          </table>
+    </div>
+    
+</div>

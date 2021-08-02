@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
 
 
   goToAttendanceManagement() {
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('/home/(child:attendance-manage;open=true)');
   }
 
 

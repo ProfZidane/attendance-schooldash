@@ -1,84 +1,149 @@
 <div class="container-fluid py-4">
     <div class="row mb-3">
         <div class="col-md-6 bor">
-            <button class="btn btn-rimarhy">
+            <button class="btn btn-primary" (click)="openCreateSpace()">
                 Créer utilisateur
             </button>
         </div>
         <div class="col-md-6 bor"></div>
     </div>
 
+
+    <div class="row" style="margin: 3rem;" *ngIf="state.createSpace">
+      <h5>Formulaire de création d'utilisateur</h5>
+      <br><br>
+      <form method="POST" (ngSubmit)="createUsers($event)">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text"  [(ngModel)]="userCreate.firstName" name="firstName" class="form-control" id="exampleFormControlInput1" placeholder="Entrez le nom">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text"  [(ngModel)]="userCreate.lastName" name="lastName" class="form-control" id="exampleFormControlInput1" placeholder="Entrez le prénom">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <div class="input-group mb-4">
+                <input type="email"  [(ngModel)]="userCreate.email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="Entrez l'adresse e-mail">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <div class="input-group mb-4">
+                <input type="text"  [(ngModel)]="userCreate.post" name="post" class="form-control" id="exampleFormControlInput1" placeholder="Entrez le poste">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group has-success">
+              <input type="text"  [(ngModel)]="userCreate.tel" name="tel" class="form-control" id="exampleFormControlInput1" placeholder="Entrez le numéro de téléphone">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group has-danger">
+              <input type="text"  [(ngModel)]="userCreate.house" name="house" class="form-control" id="exampleFormControlInput1" placeholder="Entrez le lieu d'habitation">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group has-success">
+              <label for="exampleFormControlSelect2">Sélectionnez la date de début de contrat</label>
+              <input type="date"  [(ngModel)]="userCreate.date_debut" name="date_debut" class="form-control" id="exampleFormControlInput1" placeholder="Entrez la date de début de contrat">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group has-danger">
+              <label for="exampleFormControlSelect2">Sélectionnez la date de fin de contrat</label>
+              <input type="date"  [(ngModel)]="userCreate.date_fin" name="date_fin" class="form-control" id="exampleFormControlInput1" placeholder="Entrez la date de fin de contrat">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group has-success">
+              <label for="exampleFormControlSelect2">Sélectionnez un type de contrat</label>
+              <select class="form-control" id="exampleFormControlSelect2" [(ngModel)]="userCreate.typeContract" name="type_contrat">
+                <option value="CDD">CDD</option>
+                <option value="CDI">CDI</option>
+                <option value="stage_ecole">Stage école</option>
+                <option value="stage_professionnel">Stage Professionnel</option>
+                <option value="consultant">Consultant</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group has-danger">
+              <label for="exampleFormControlSelect2">Sélectionnez la date d'évaluation</label>
+              <input type="date"  [(ngModel)]="userCreate.date_evaluation" name="date_evaluation" class="form-control" id="exampleFormControlInput1">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group has-danger">
+              <label for="exampleFormControlSelect2">Sélectionnez le supérieur de niveau 1</label>
+              <select class="form-control" id="exampleFormControlSelectSup1" [(ngModel)]="sup1" name="superieur1" *ngIf="users">
+                <option *ngFor="let user of users" value="{{ user._id + '/' + user.firstName + ' ' + user.lastName }}">{{ user.firstName + ' ' + user.lastName }}</option>                
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group has-danger">
+              <label for="exampleFormControlSelect2">Sélectionnez le supérieur de niveau 2</label>
+              <select class="form-control" id="exampleFormControlSelectSup2" [(ngModel)]="sup2" name="superieur2" *ngIf="users" >
+                <option *ngFor="let user of users" value="{{ user._id + '/' + user.firstName + ' ' + user.lastName }}">{{ user.firstName + ' ' + user.lastName }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-primary btn-lg btn-lg w-100" type="submit" *ngIf="state.send === false">Valider</button>
+            <button class="btn btn-primary mb-2 btn-lg btn-lg w-100" type="button" disabled *ngIf="state.send === true">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              chargement...
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
     <div class="row">
-        <table datatable [dtOptions]="dtOptions" class="row-border hover">
+      
+        <table datatable [dtOptions]="dtOptions" class="row-border hover" *ngIf="users">
             <thead>
-              <tr>
-                <th>ID</th>
-                <th>First name</th>
-                <th>Last name</th>
+              <tr>                
+                <th>Noms & prénoms</th>
+                <th>Adresse Email</th>
+                <th>Habitation</th>
+                <th>Numéro téléphone</th>
+                <th>Poste</th>
+                <th>Statue Connexion</th>
+                <th>Date Création</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Foo</td>
-                <td>Bar</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Someone</td>
-                <td>Youknow</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Iamout</td>
-                <td>Ofinspiration</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Yoda</td>
-                <td>Skywalker</td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>Patrick</td>
-                <td>Dupont</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>Barack</td>
-                <td>Obama</td>
-              </tr>
-              <tr>
-                <td>7</td>
-                <td>François</td>
-                <td>Holland</td>
-              </tr>
-              <tr>
-                <td>8</td>
-                <td>Michel</td>
-                <td>Popo</td>
-              </tr>
-              <tr>
-                <td>9</td>
-                <td>Chuck</td>
-                <td>Norris</td>
-              </tr>
-              <tr>
-                <td>10</td>
-                <td>Simon</td>
-                <td>Robin</td>
-              </tr>
-              <tr>
-                <td>11</td>
-                <td>Louis</td>
-                <td>Lin</td>
-              </tr>
-              <tr>
-                <td>12</td>
-                <td>Zelda</td>
-                <td>Link</td>
-              </tr>
+            <tbody >
+              <tr *ngFor="let user of users">                
+                <td>{{ user.firstName + ' ' + user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.house }}</td>
+                <td>{{ user.tel }}</td>
+                <td>{{ user.post }}</td>
+                <td class="text-success" *ngIf="user.isConnected === 'true'">Connecté</td>
+                <td class="text-danger" *ngIf="user.isConnected === 'false'">Déconnecté</td>
+                <td>{{ user.created_at }}</td>
+              </tr>              
             </tbody>
           </table>
     </div>
 </div>
+

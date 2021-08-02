@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -18,9 +19,36 @@ error = {
   state: false,
   text: ''
 };
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
+    /* this.http.post('http://localhost:3000/auth/register',
+    {
+      lastName:  'zidane',
+    firstName: 'Mohamed',
+    email: 'madazada0@gmail.com',
+    password: 'azerty',
+    tel: '+225 85858585',
+    house: 'Yopougon sapeur pompier',
+    photo: '',
+    role: 'administrator',
+    post: 'manager',
+    isConnected: 'false',
+    superior: [],
+    created_at: new Date().toLocaleDateString()
+    }).subscribe(
+      (success) => {
+
+        console.log(success);
+
+
+      }, (err) => {
+
+        console.log(err);
+
+
+      }
+    ); */
   }
 
 
@@ -47,7 +75,7 @@ error = {
         } else if (err.status === 408) {
           this.error.text = err.error.message;
         }
-        
+
       }
     );
   }

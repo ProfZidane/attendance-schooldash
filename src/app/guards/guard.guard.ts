@@ -21,18 +21,24 @@ export class GuardGuard implements CanActivate {
           return true;
 
         } else {
-          this.authService.logout({ _id: JSON.parse(token)._id }).subscribe(
-            (success) => {
-              console.log(success);
-              
-              localStorage.removeItem('app-token');
-              localStorage.removeItem('user-data');
-            }, (err) => {
-              console.log(err);
-              localStorage.removeItem('app-token');
-              localStorage.removeItem('user-data');
-            }
-          );
+          
+          if (datas) {
+            this.authService.logout({ _id: JSON.parse(datas)._id }).subscribe(
+              (success) => {
+                console.log(success);
+                
+                localStorage.removeItem('app-token');
+                localStorage.removeItem('user-data');
+              }, (err) => {
+                console.log(err);
+                localStorage.removeItem('app-token');
+                localStorage.removeItem('user-data');
+              }
+            );
+          } else {
+            localStorage.removeItem('app-token');
+            localStorage.removeItem('user-data');    
+          }
           
           this.router.navigateByUrl('/');
           return false;

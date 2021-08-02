@@ -1,0 +1,119 @@
+<div class="container-fluid bg-secondary text-light">
+    <div class="row">
+        <div class="container p-5">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                  <h1 class="text-light display-4" style="font-weight: 500;">Justification de retard</h1>
+                  <p class="lead">... soit valider ou rejeter la justification.</p>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="state.etat === 'not valided'">
+    <div *ngIf="state.full_page === true">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="col-md-3">
+                        <h5 style="transform: translateY(350%);">
+                            Auteur de la demande
+                        </h5>
+                    </div>
+                    <div class="col-md-9">
+                        <ul class="list-group" *ngIf="data_user">
+                            <li class="list-group-item">{{ data_user.firstName }}</li>
+                            <li class="list-group-item">{{ data_user.lastName }}</li>
+                            <li class="list-group-item">{{ data_user.post }}</li>
+                            <li class="list-group-item">{{ data_user.email }}</li>
+                            <li class="list-group-item">{{ data_user.tel }}</li>
+                          </ul>
+                    </div>
+                </div>
+                <div class="row p-5">
+                    <div class="col-md-3" align="left">
+                        <h5 style="transform: translateY(50%);">
+                            Informations supplémentaires
+                        </h5>
+                    </div>
+                    <div class="col-md-9">
+                        <ul class="list-group" *ngIf="data_proof">
+                            <li class="list-group-item">{{ data_proof.created_at }}</li>
+                            <li class="list-group-item">{{ data_proof.motif }}</li>
+                            <li class="list-group-item" *ngIf="data_proof.pieceJointe !== ''">
+                                <button class="btn btn-primary">Voir pièce jointe</button>
+                            </li>
+                            <li class="list-group-item text-danger" *ngIf="data_proof.pieceJointe === ''">
+                                Aucune pièce fournie1
+                            </li>                    
+                          </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container-fluid">
+            <div class="row p-5" align="center">
+                <div class="col-md-6">
+                    <button class="btn btn-success btn-lg" (click)="showForm('approuvée')">
+                        J'approuve 
+                    </button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-danger btn-lg" (click)="showForm('rejetée')">
+                        Je rejète 
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container-fluid" *ngIf="state.motif === true">
+            <div class="row p-5">
+                <div class="col-md-12">
+                    <div class="container" style="width: 70%;">
+                        <form action="" method="post" (ngSubmit)="sendForms()">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Motif</label>
+                                <textarea class="form-control" required id="exampleFormControlTextarea1" rows="3" name="motif" [(ngModel)]="justification.motif"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit" *ngIf="state.send === false">
+                                    Valider
+                                </button>
+                                <button class="btn btn-primary" type="button" disabled *ngIf="state.send === true">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    chargement...
+                                </button>
+                                <p *ngIf="state.err.state === true" class="text-danger">
+                                    <strong>Problème </strong>: {{ state.err.text }} !
+                                </p>
+                            </div>  
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div *ngIf="state.full_page === false">
+        <div class="container p-5" align="center">
+            <i class="material-icons" style="font-size: 115px;">flight_takeoff</i>
+            <h3>Votre requête a bien été prise en compte !</h3>
+            <p>
+                Merci de nous faire confiance.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="state.etat === 'valided'">
+    <div class="container p-5" align="center">
+        <i class="material-icons text-danger" style="font-size: 115px;">pan_tool</i>
+        <h3 class="text-danger">L'accès est interdit !</h3>
+        <p>
+            Cette justification a déjà été prise en compte. Elle est donc inaccessible.
+        </p>
+    </div>
+</div>

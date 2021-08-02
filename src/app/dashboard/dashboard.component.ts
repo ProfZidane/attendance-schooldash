@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
         this.countUser = data;
       }, (err) => {
         console.log(err);
-        
+
       }
     );
   }
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
         this.countAttendance = data;
       }, (err) => {
         console.log(err);
-        
+
       }
     );
   }
@@ -64,12 +64,12 @@ export class DashboardComponent implements OnInit {
         this.countProof = data;
       }, (err) => {
         console.log(err);
-        
+
       }
     );
   }
 
-  
+
   getLateByUser() {
      this.attendanceService.countLateByUser().subscribe(
        (data) => {
@@ -87,7 +87,7 @@ export class DashboardComponent implements OnInit {
         
        }, (err) => {
          console.log(err);
-         
+
        }
      );
   }
@@ -110,7 +110,7 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-  
+
 
   getDataToChart(monthTab: any, dataTab: any) {
     this.type = 'line';
@@ -145,5 +145,6 @@ export class DashboardComponent implements OnInit {
       maintainAspectRatio: false
     };
   }
+
 
 }
