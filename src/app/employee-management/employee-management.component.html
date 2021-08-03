@@ -117,7 +117,13 @@
       </form>
     </div>
 
-    <div class="row">
+    <div align="center" *ngIf="state.load === false">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="state.load === true">
       
         <table datatable [dtOptions]="dtOptions" class="row-border hover" *ngIf="users">
             <thead>

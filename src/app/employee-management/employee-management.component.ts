@@ -13,7 +13,8 @@ export class EmployeeManagementComponent implements OnInit {
   users2: any;
   state = {
     createSpace: false,
-    send: false
+    send: false,
+    load: false
   };
   userCreate = {
     lastName:  '',
@@ -50,13 +51,15 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
   getListUser() {
+    this.state.load = false;
     this.userService.getUserSystem().subscribe(
       (data) => {
         console.log(data);
         this.users = data;
+        this.state.load = true;
       }, (err) => {
         console.log(err);
-        
+        this.state.load = false;
       }
     )
   }
