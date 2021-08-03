@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment.prod';
 export class UserService {
   countURL = environment.endPoint + 'user/get-personnal';
   listURL = environment.endPoint + 'user/get-data-personnal';
+  listAllURL = environment.endPoint + 'user/get-data-all';
   createURL = environment.endPoint + 'auth/register';
   constructor(private http: HttpClient) { }
 
@@ -18,6 +19,10 @@ export class UserService {
 
   getUserSystem(): Observable<any> {
     return this.http.get(this.listURL);
+  }
+
+  getUserAllSystem(): Observable<any> {
+    return this.http.get(this.listAllURL);
   }
 
   createUser(data: any): Observable<any> {

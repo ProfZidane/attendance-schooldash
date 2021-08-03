@@ -10,6 +10,7 @@ import { UserService } from '../services/user.service';
 export class EmployeeManagementComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   users: any;
+  users2: any;
   state = {
     createSpace: false,
     send: false
@@ -44,6 +45,7 @@ export class EmployeeManagementComponent implements OnInit {
       pagingType: 'full_numbers'
     };
     this.getListUser();
+    this.getListAllUser();
     this.selectSup1();
   }
 
@@ -52,6 +54,18 @@ export class EmployeeManagementComponent implements OnInit {
       (data) => {
         console.log(data);
         this.users = data;
+      }, (err) => {
+        console.log(err);
+        
+      }
+    )
+  }
+
+  getListAllUser() {
+    this.userService.getUserAllSystem().subscribe(
+      (data) => {
+        console.log(data);
+        this.users2 = data;
       }, (err) => {
         console.log(err);
         

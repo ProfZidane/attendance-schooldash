@@ -91,16 +91,16 @@
           <div class="col-md-6">
             <div class="form-group has-danger">
               <label for="exampleFormControlSelect2">Sélectionnez le supérieur de niveau 1</label>
-              <select class="form-control" id="exampleFormControlSelectSup1" [(ngModel)]="sup1" name="superieur1" *ngIf="users">
-                <option *ngFor="let user of users" value="{{ user._id + '/' + user.firstName + ' ' + user.lastName }}">{{ user.firstName + ' ' + user.lastName }}</option>                
+              <select class="form-control" id="exampleFormControlSelectSup1" [(ngModel)]="sup1" name="superieur1" *ngIf="users2">
+                <option *ngFor="let user of users2" value="{{ user._id + '/' + user.firstName + ' ' + user.lastName }}">{{ user.firstName + ' ' + user.lastName }}</option>                
               </select>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group has-danger">
               <label for="exampleFormControlSelect2">Sélectionnez le supérieur de niveau 2</label>
-              <select class="form-control" id="exampleFormControlSelectSup2" [(ngModel)]="sup2" name="superieur2" *ngIf="users" >
-                <option *ngFor="let user of users" value="{{ user._id + '/' + user.firstName + ' ' + user.lastName }}">{{ user.firstName + ' ' + user.lastName }}</option>
+              <select class="form-control" id="exampleFormControlSelectSup2" [(ngModel)]="sup2" name="superieur2" *ngIf="users2" >
+                <option *ngFor="let user of users2" value="{{ user._id + '/' + user.firstName + ' ' + user.lastName }}">{{ user.firstName + ' ' + user.lastName }}</option>
               </select>
             </div>
           </div>
