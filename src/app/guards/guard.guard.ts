@@ -16,7 +16,7 @@ export class GuardGuard implements CanActivate {
       
       if (token !== null && datas !== null) {
         const data = JSON.parse(datas).role;
-        if (data === "agent") {
+        if (data === "administrator") {
 
           return true;
 
