@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  endPoint: 'https://arcane-garden-11040.herokuapp.com/'
 };
