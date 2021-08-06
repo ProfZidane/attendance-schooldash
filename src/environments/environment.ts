@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  endPoint: 'http://localhost:3000/'
+  endPoint: 'https://arcane-garden-11040.herokuapp.com/'
 };
 
 /*
