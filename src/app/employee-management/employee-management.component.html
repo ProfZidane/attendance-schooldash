@@ -34,20 +34,13 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="form-group">
-              <div class="input-group mb-4">
-                <input type="text"  [(ngModel)]="userCreate.post" name="post" class="form-control" id="exampleFormControlInput1" placeholder="Entrez le poste">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
             <div class="form-group has-success">
               <input type="text"  [(ngModel)]="userCreate.tel" name="tel" class="form-control" id="exampleFormControlInput1" placeholder="Entrez le numéro de téléphone">
             </div>
           </div>
-          <div class="col-md-6">
+        </div>
+        <div class="row">          
+          <div class="col-md-12">
             <div class="form-group has-danger">
               <input type="text"  [(ngModel)]="userCreate.house" name="house" class="form-control" id="exampleFormControlInput1" placeholder="Entrez le lieu d'habitation">
             </div>
@@ -55,58 +48,31 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            <div class="form-group has-success">
-              <label for="exampleFormControlSelect2">Sélectionnez la date de début de contrat</label>
-              <input type="date"  [(ngModel)]="userCreate.date_debut" name="date_debut" class="form-control" id="exampleFormControlInput1" placeholder="Entrez la date de début de contrat">
-            </div>
+            
           </div>
           <div class="col-md-6">
-            <div class="form-group has-danger">
-              <label for="exampleFormControlSelect2">Sélectionnez la date de fin de contrat</label>
-              <input type="date"  [(ngModel)]="userCreate.date_fin" name="date_fin" class="form-control" id="exampleFormControlInput1" placeholder="Entrez la date de fin de contrat">
-            </div>
+            
           </div>
         </div>
         <div class="row">
           <div class="col-md-6">
-            <div class="form-group has-success">
-              <label for="exampleFormControlSelect2">Sélectionnez un type de contrat</label>
-              <select class="form-control" id="exampleFormControlSelect2" [(ngModel)]="userCreate.typeContract" name="type_contrat">
-                <option value="CDD">CDD</option>
-                <option value="CDI">CDI</option>
-                <option value="stage_ecole">Stage école</option>
-                <option value="stage_professionnel">Stage Professionnel</option>
-                <option value="consultant">Consultant</option>
-              </select>
-            </div>
+            
           </div>
           <div class="col-md-6">
-            <div class="form-group has-danger">
-              <label for="exampleFormControlSelect2">Sélectionnez la date d'évaluation</label>
-              <input type="date"  [(ngModel)]="userCreate.date_evaluation" name="date_evaluation" class="form-control" id="exampleFormControlInput1">
-            </div>
+            
           </div>
         </div>
         <div class="row">
           <div class="col-md-6">
-            <div class="form-group has-danger">
-              <label for="exampleFormControlSelect2">Sélectionnez le supérieur de niveau 1</label>
-              <select class="form-control" id="exampleFormControlSelectSup1" [(ngModel)]="sup1" name="superieur1" *ngIf="users2">
-                <option *ngFor="let user of users2" value="{{ user._id + '/' + user.firstName + ' ' + user.lastName }}">{{ user.firstName + ' ' + user.lastName }}</option>                
-              </select>
-            </div>
+            
           </div>
           <div class="col-md-6">
-            <div class="form-group has-danger">
-              <label for="exampleFormControlSelect2">Sélectionnez le supérieur de niveau 2</label>
-              <select class="form-control" id="exampleFormControlSelectSup2" [(ngModel)]="sup2" name="superieur2" *ngIf="users2" >
-                <option *ngFor="let user of users2" value="{{ user._id + '/' + user.firstName + ' ' + user.lastName }}">{{ user.firstName + ' ' + user.lastName }}</option>
-              </select>
-            </div>
+            
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
+            <small *ngIf="state.err.state" class="text-danger">{{ state.err.text }}</small>
             <button class="btn btn-primary btn-lg btn-lg w-100" type="submit" *ngIf="state.send === false">Valider</button>
             <button class="btn btn-primary mb-2 btn-lg btn-lg w-100" type="button" disabled *ngIf="state.send === true">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -132,9 +98,12 @@
                 <th>Adresse Email</th>
                 <th>Habitation</th>
                 <th>Numéro téléphone</th>
-                <th>Poste</th>
+                <!-- <th>Poste</th> -->
                 <th>Statue Connexion</th>
                 <th>Date Création</th>
+                <th *ngIf="(userRole.role === 'system_administrator')"></th>
+                <th *ngIf="(userRole.role === 'system_administrator')"></th>
+                <th *ngIf="(userRole.role === 'system_administrator')"></th>
               </tr>
             </thead>
             <tbody >
@@ -143,13 +112,48 @@
                 <td>{{ user.email }}</td>
                 <td>{{ user.house }}</td>
                 <td>{{ user.tel }}</td>
-                <td>{{ user.post }}</td>
+                <!-- <td>{{ user.post }}</td> -->
                 <td class="text-success" *ngIf="user.isConnected === 'true'">Connecté</td>
                 <td class="text-danger" *ngIf="user.isConnected === 'false'">Déconnecté</td>
                 <td>{{ user.created_at }}</td>
+                <td *ngIf="(userRole.role === 'system_administrator')">
+                  <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Modifier
+                  </button>
+                </td>
+                <td *ngIf="(userRole.role === 'system_administrator')">
+                  <button class="btn btn-danger btn-sm">
+                    Supprimer
+                  </button>
+                </td>
+                <td *ngIf="(userRole.role === 'system_administrator')">
+                  <button class="btn btn-info btn-sm">
+                    password
+                  </button>
+                </td>
               </tr>              
             </tbody>
           </table>
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

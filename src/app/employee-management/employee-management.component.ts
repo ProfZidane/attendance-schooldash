@@ -14,7 +14,11 @@ export class EmployeeManagementComponent implements OnInit {
   state = {
     createSpace: false,
     send: false,
-    load: false
+    load: false,
+    err: {
+      state: false,
+      text: ""
+    }
   };
   userCreate = {
     lastName:  '',
@@ -24,14 +28,9 @@ export class EmployeeManagementComponent implements OnInit {
   tel: '',
   house: '',
   photo: '',
-  role: 'agent',
-  post: '',
-  typeContract: '',
-  date_debut: '',
-  date_fin: '',
-  date_evaluation: '',
-  isConnected: 'false',
-  superior: [] as any,
+  role: 'etudiant',
+  grade: '',
+  isConnected: 'false',  
   created_at: new Date().toLocaleDateString()
   };
   sup1 = "";
@@ -39,15 +38,31 @@ export class EmployeeManagementComponent implements OnInit {
   sup1_name = "";
   sup2_name = "";
   superiors: Object[] = [];
+  userRole: any;
   constructor(private userService: UserService, private location: Location) { }
 
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers'
     };
-    this.getListUser();
-    this.getListAllUser();
+
+    this.getRole();
+
+    if (this.userRole.role === "system_administrator") {
+      this.getListAllUser();
+    } else {
+      this.getListUser();
+    }
+
     this.selectSup1();
+  }
+
+
+  getRole() {
+    if (localStorage.getItem('user-data') !== null) {
+      this.userRole = localStorage.getItem('user-data');
+      this.userRole = JSON.parse(this.userRole);
+    }
   }
 
   getListUser() {
@@ -65,13 +80,17 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
   getListAllUser() {
+    this.state.load = false;
     this.userService.getUserAllSystem().subscribe(
       (data) => {
         console.log(data);
-        this.users2 = data;
+        this.users = data;
+        this.state.load = true;
+
       }, (err) => {
         console.log(err);
-        
+        this.state.load = false;
+
       }
     )
   }
@@ -96,42 +115,19 @@ export class EmployeeManagementComponent implements OnInit {
 
 
   createUsers(event: Event) {
-    this.state.send = true;
-
-    if (this.sup1 !== "" || this.sup1 !== null) {
-      const text = this.sup1.split('/');
-      this.sup1 = text[0];
-      
-      const sup = {
-        _id: this.sup1,
-        name: text[1]
-      };
-      
-      this.superiors.push(sup);
-    }
-
-    if (this.sup2 !== "" || this.sup2 !== null) {
-      const text = this.sup2.split('/');
-      this.sup2 = text[0];
-      
-      const sup = {
-        _id: this.sup2,
-        name: text[1]
-      };
-
-      this.superiors.push(sup);
-    }
-
-    this.userCreate.superior = this.superiors;
-    
-
+    this.state.send = true;    
+    this.state.err.state = false;
     console.log(this.userCreate);
 
     this.userService.createUser(this.userCreate).subscribe(
       (res) => {
         console.log(res);
         this.state.send = false;
-        this.getListUser();
+        if (this.userRole.role === "system_administrator") {
+          this.getListAllUser();
+        } else {
+          this.getListUser();
+        }
         this.userCreate = {
           lastName:  '',
         firstName: '',
@@ -140,19 +136,18 @@ export class EmployeeManagementComponent implements OnInit {
         tel: '',
         house: '',
         photo: '',
-        role: 'agent',
-        post: '',
-        typeContract: '',
-        date_debut: '',
-        date_fin: '',
-        date_evaluation: '',
-        isConnected: 'false',
-        superior: [] as any,
+        role: 'etudiant',
+        grade: '',        
+        isConnected: 'false',        
         created_at: new Date().toLocaleDateString()
         };
+        this.state.createSpace = false;
+        // this.state.send = false;
       }, (err) => {
         console.log(err);
         this.state.send = false;
+        this.state.err.state = true;
+        this.state.err.text = err.error.message;
       }
     );
 

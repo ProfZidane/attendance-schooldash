@@ -12,11 +12,21 @@ export class AttendanceManagementComponent implements OnInit {
   state = {
     load: false
   };
+  userRole: any;
   constructor(private attendanceService: AttendanceService) { }
 
   ngOnInit(): void {
     this.getListAttendance();
+    this.getRole();
   }
+
+  getRole() {
+    if (localStorage.getItem('user-data') !== null) {
+      this.userRole = localStorage.getItem('user-data');
+      this.userRole = JSON.parse(this.userRole);
+    }
+  }
+
 
   getListAttendance() {
     this.attendanceService.getListAtendances().subscribe(

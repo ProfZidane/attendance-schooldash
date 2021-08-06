@@ -28,8 +28,8 @@
                 <th>Numéro téléphone</th>
                 <th>Heure d'Arrivée</th>
                 <th>Heure de sortie</th>
-                <th>Temps de travail</th>
-                <th></th>
+                <th *ngIf="userRole.role === 'system_administrator'">Temps de travail</th>
+                <th *ngIf="userRole.role === 'system_administrator'"></th>
                 <th></th>
                 <th></th>
                 <!-- <th></th> -->
@@ -42,9 +42,9 @@
                 <td>{{ attendance.userData.tel }}</td>
                 <td>{{ attendance.startTime}}</td>
                 <td>{{ attendance.endTime }}</td>
-                <td>{{ attendance.workTime }}</td>
-                <td *ngIf="attendance.justified === 'true'" class="text-success">Justifié</td>
-                <td *ngIf="attendance.justified === 'false'" class="text-danger">Non justifié</td>
+                <td *ngIf="userRole.role === 'system_administrator'">{{ attendance.workTime }}</td>
+                <td *ngIf="(userRole.role === 'system_administrator') && (attendance.justified === 'true')" class="text-success">Justifié</td>
+                <td *ngIf="(userRole.role === 'system_administrator') && (attendance.justified === 'false')" class="text-danger">Non justifié</td>
                 <td>
                   <button class="btn btn-primary disabled" *ngIf="attendance.justified === 'false'">Justification</button>
                   <button class="btn btn-primary" *ngIf="attendance.justified === 'true'">Voir justificatif</button>
