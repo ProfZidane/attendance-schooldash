@@ -14,6 +14,8 @@ import { EmployeeManagementComponent } from './employee-management/employee-mana
 import { AttendanceManagementComponent } from './attendance-management/attendance-management.component';
 import { DataTablesModule } from "angular-datatables";
 import { NoticeJustificationComponent } from './notice-justification/notice-justification.component';
+import { EntrepriseManageComponent } from './entreprise-manage/entreprise-manage.component';
+import { EntrepriseMemberComponent } from './entreprise-member/entreprise-member.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { NoticeJustificationComponent } from './notice-justification/notice-just
     DashboardComponent,
     EmployeeManagementComponent,
     AttendanceManagementComponent,
-    NoticeJustificationComponent
+    NoticeJustificationComponent,
+    EntrepriseManageComponent,
+    EntrepriseMemberComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit {
   data2: any;
   options2: any;
   year = new Date().getFullYear();
+  user: any;
+
   constructor(private userService: UserService, private attendanceService: AttendanceService) { }
 
   ngOnInit(): void {
@@ -29,6 +31,8 @@ export class DashboardComponent implements OnInit {
     this.getLateByUser();
     this.getLateByMonth();
 
+    this.user = localStorage.getItem('user-data');
+    this.user = JSON.parse(this.user);
     // this.getDataToChart();
   }
 

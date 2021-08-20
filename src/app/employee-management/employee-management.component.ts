@@ -31,6 +31,7 @@ export class EmployeeManagementComponent implements OnInit {
   role: 'etudiant',
   grade: '',
   isConnected: 'false',  
+  codeEntreprise : "",
   created_at: new Date().toLocaleDateString()
   };
   sup1 = "";
@@ -67,7 +68,7 @@ export class EmployeeManagementComponent implements OnInit {
 
   getListUser() {
     this.state.load = false;
-    this.userService.getUserSystem().subscribe(
+    this.userService.getUserSystem(this.userRole.codeEntreprise).subscribe(
       (data) => {
         console.log(data);
         this.users = data;
@@ -81,7 +82,7 @@ export class EmployeeManagementComponent implements OnInit {
 
   getListAllUser() {
     this.state.load = false;
-    this.userService.getUserAllSystem().subscribe(
+    this.userService.getUserAllSystem(this.userRole.codeEntreprise).subscribe(
       (data) => {
         console.log(data);
         this.users = data;
@@ -114,43 +115,45 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
 
-  createUsers(event: Event) {
-    this.state.send = true;    
-    this.state.err.state = false;
-    console.log(this.userCreate);
+    createUsers(event: Event) {
+      this.state.send = true;    
+      this.state.err.state = false;
+      console.log(this.userCreate);
+      this.userCreate.codeEntreprise = this.userRole.codeEntreprise;
 
-    this.userService.createUser(this.userCreate).subscribe(
-      (res) => {
-        console.log(res);
-        this.state.send = false;
-        if (this.userRole.role === "system_administrator") {
-          this.getListAllUser();
-        } else {
-          this.getListUser();
-        }
-        this.userCreate = {
+      this.userService.createUser(this.userCreate).subscribe(
+        (res) => {
+          console.log(res);
+          this.state.send = false;
+          if (this.userRole.role === "system_administrator") {
+            this.getListAllUser();
+          } else {
+            this.getListUser();
+          }
+          this.userCreate = {
           lastName:  '',
-        firstName: '',
-        email: '',
-        password: '',
-        tel: '',
-        house: '',
-        photo: '',
-        role: 'etudiant',
-        grade: '',        
-        isConnected: 'false',        
-        created_at: new Date().toLocaleDateString()
-        };
-        this.state.createSpace = false;
-        // this.state.send = false;
-      }, (err) => {
-        console.log(err);
-        this.state.send = false;
-        this.state.err.state = true;
-        this.state.err.text = err.error.message;
-      }
-    );
+          firstName: '',
+          email: '',
+          password: '',
+          tel: '',
+          house: '',
+          photo: '',
+          role: 'etudiant',
+          grade: '',        
+          isConnected: 'false',    
+          codeEntreprise : "",
+          created_at: new Date().toLocaleDateString()
+          };
+          this.state.createSpace = false;
+          // this.state.send = false;
+        }, (err) => {
+          console.log(err);
+          this.state.send = false;
+          this.state.err.state = true;
+          this.state.err.text = err.error.message;
+        }
+      );
 
-  }
+    }
 
 }

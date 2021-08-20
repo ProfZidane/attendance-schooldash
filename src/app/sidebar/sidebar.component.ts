@@ -7,10 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-
+user: any;
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.user = localStorage.getItem('user-data');
+    this.user = JSON.parse(this.user);
   }
 
   goToHome() {
@@ -26,6 +28,10 @@ export class SidebarComponent implements OnInit {
     this.router.navigateByUrl('/home/(child:attendance-manage;open=true)');
   }
 
+
+  goToEntrepriseManagement() {
+    this.router.navigateByUrl('/home/(child:entreprise-manage;open=true)');
+  }
 
 
 

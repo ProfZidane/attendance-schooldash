@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AttendanceManagementComponent } from './attendance-management/attendance-management.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EmployeeManagementComponent } from './employee-management/employee-management.component';
+import { EntrepriseManageComponent } from './entreprise-manage/entreprise-manage.component';
+import { EntrepriseMemberComponent } from './entreprise-member/entreprise-member.component';
 import { GuardGuard } from './guards/guard.guard';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -32,6 +34,15 @@ const routes: Routes = [
       {
         path: 'attendance-manage',
         component: AttendanceManagementComponent,
+        outlet: 'child'
+      },
+      {
+        path: 'entreprise-manage',
+        component: EntrepriseManageComponent,
+        outlet: 'child'
+      }, {
+        path: 'entreprise-admin/:code',
+        component: EntrepriseMemberComponent,
         outlet: 'child'
       }
     ]

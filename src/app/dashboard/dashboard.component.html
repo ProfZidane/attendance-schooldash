@@ -1,4 +1,4 @@
-<div class="container-fluid py-4">
+<div class="container-fluid py-4" *ngIf="user.role !=='system_administrator'">
     <div class="row">
         <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
         <div class="card">
@@ -129,4 +129,15 @@
         </div>
         </div>
     </footer>
+</div>
+
+<div class="container-fluid py-4" *ngIf="user.role ==='system_administrator'">
+    <div class="container mt-5" align="center">
+        <h1>
+            Page de gestion intégrée
+        </h1>
+        <p>
+            Réversée au personnel de la LOCOMOTIVE SARL
+        </p>
     </div>
+</div>

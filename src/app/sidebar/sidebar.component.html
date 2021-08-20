@@ -20,7 +20,18 @@
           </a>
         </li>
 
-        <li class="nav-item mt-3">
+        <li class="nav-item mt-3" *ngIf="user.role === 'system_administrator'">
+          <a class="nav-link  active" (click)="goToEntrepriseManagement()" style="cursor: pointer;">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="large material-icons">
+                location_city
+              </i>
+            </div>
+            <span class="nav-link-text ms-1">Gestion des entreprises</span>
+          </a>
+        </li>
+
+        <li class="nav-item mt-3" *ngIf="user.role !=='system_administrator'">
           <a class="nav-link  active" (click)="goToEmployeeManagement()" style="cursor: pointer;">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="large material-icons">
@@ -31,7 +42,7 @@
           </a>
         </li>
 
-        <li class="nav-item mt-3">
+        <li class="nav-item mt-3" *ngIf="user.role !=='system_administrator'">
           <a class="nav-link  active" (click)="goToAttendanceManagement()" style="cursor: pointer;">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="large material-icons">
